@@ -1,5 +1,5 @@
 
-import {formatDate} from "~/lib/utils";
+import { formatDate } from "~/lib/utils";
 
 export const sidebarItems = [
   {
@@ -216,3 +216,5 @@ export const users = [
     status: "admin",
   },
 ];
+
+ 

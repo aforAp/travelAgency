@@ -27,15 +27,20 @@ const MobileSidebar = () => {
     };
   }, [toggle]);
   return (
+    <div>
     <div ref={sidebarRef} className="lg:static md:hidden sm:static mobile-sidebar wrapper">
-       <button className="absolute right-0 top-5 mr-5" onClick={() => setToggle(prev => !prev)}>
+       
+
+            <NavItems isDisplay={toggle} />
+    </div>
+    <button className="absolute z-50 md:hidden cursor-pointer right-0 top-5 mr-5" onClick={() => setToggle(prev => !prev)}>
            {toggle ? (<img src={Menu} alt="menu" className="size-7" />): 
 (<img src={Cancel} alt="menu" className="size-7" />)}
             </button> 
-
-            <NavItems isDisplay={toggle} />
     </div>
   )
 }
 
 export default MobileSidebar;
+
+
