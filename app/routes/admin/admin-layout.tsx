@@ -1,7 +1,25 @@
-import { Outlet } from "react-router"
+import { Outlet, redirect } from "react-router"
+import { account } from "~/appwrite/client";
+import { getExistingUser, storeUserData } from "~/appwrite/auth";
 import { NavItems, MobileSidebar, DesktopNavItems } from "~/components"
-import SideBar from "~/Styles/SideBar"
+import SideBar from "~/Styles/SideBar";
 
+export async function clientLoader() {
+    try {
+        const user = await account.get();
+        if(!user.id) return redirect("/sign-in");
+        const existingUser = await getExistingUser(user.id);
+        if(existingUser?.status === 'user') {
+          return redirect("/");
+          //it will redirect to the user not an admin
+        }
+        return existingUser?.id ? existingUser: await storeUserData();
+
+    } catch(e) {
+        console.log("error in client load", e);
+        return redirect("/sign-in");
+    }
+}
 const AdminLayout = () => {
   return (
     <div className="lg:grid lg:grid-cols-[200px_1fr] h-screen bg-white">
